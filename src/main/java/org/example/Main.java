@@ -10,9 +10,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        int numberTries= 0;
+        int numberOfTries= 0;
         Scanner number = new Scanner(in);
-        while (numberTries < MAX_TRIES) {
+        while ( numberOfTries < MAX_TRIES) {
             out.printf("Wpisz %s lub inny numer:", CORRECT_NUMBER);
             String input = number.nextLine();
             out.println(input);
@@ -20,7 +20,7 @@ public class Main {
                 out.println("Wszedles!");
                 return;
             }
-                numberTries++;
+            numberOfTries++;
                 out.println("Nie prawidlowe haslo!\n");
 
         }
