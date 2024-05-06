@@ -1,22 +1,28 @@
 package org.example;
+
 import java.util.Scanner;
 
-import static java.lang.System.in;
-import static java.lang.System.out;
+import static java.lang.System.*;
 
 public class Main {
 
     public static final String CORRECT_NUMBER = "5";
+    public static final int MAX_TRIES = 5;
+
 
     public static void main(String[] args) {
+        int numberOfTries = 0;
         Scanner number = new Scanner(in);
-        out.println("Wpisz " + CORRECT_NUMBER + " lub inny numer");
-        String name = number.nextLine();
-        out.println(name);
-        if (CORRECT_NUMBER.equals(name)) {
-            out.println("Wszedles");
-        } else {
-            out.println("Nie prawidlowe haslo");
+        while (numberOfTries < MAX_TRIES) {
+            out.printf("Wpisz %s lub inny numer:", CORRECT_NUMBER);
+            String input = number.nextLine();
+            out.println(input);
+            if (CORRECT_NUMBER.equals(input)) {
+                out.println("Wszedles!");
+                return;
+            }
+            numberOfTries++;
+            out.println("Nie prawidlowe haslo!\n");
         }
     }
 }
