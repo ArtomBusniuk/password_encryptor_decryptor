@@ -1,4 +1,5 @@
 package org.example;
+
 import java.util.Scanner;
 
 import static java.lang.System.*;
@@ -10,9 +11,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        int numberOfTries= 0;
+        int numberOfTries = 0;
         Scanner number = new Scanner(in);
-        while ( numberOfTries < MAX_TRIES) {
+        while (numberOfTries < MAX_TRIES) {
             out.printf("Wpisz %s lub inny numer:", CORRECT_NUMBER);
             String input = number.nextLine();
             out.println(input);
@@ -21,9 +22,7 @@ public class Main {
                 return;
             }
             numberOfTries++;
-                out.println("Nie prawidlowe haslo!\n");
-
+            out.println("Nie prawidlowe haslo!\n");
         }
-
     }
 }
