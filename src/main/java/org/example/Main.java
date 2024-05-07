@@ -21,30 +21,29 @@ public class Main {
             out.println(input);
             if (CORRECT_NUMBER.equals(input)) {
                 out.println("Wszedles!");
-                menu();
+                printMenu();
                 return;
             }
             numberOfTries++;
             out.println("Nie prawidlowe haslo!\n");
         }
     }
-    public static void menu() {
+    public static void printMenu() {
 
-        Scanner number = new Scanner(in);
+        Scanner menu = new Scanner(in);
         out.println("Wszedles w admina!");
         out.println("1 - encrypt hasla  i decrypt hasla");
         out.println("2 - exit");
-        String menuInput = number.nextLine();
+        String menuInput = menu.nextLine();
         switch (menuInput) {
             case "1":
-                byte[] encryptPassword = Base64.getEncoder().encode(CORRECT_NUMBER.getBytes());
-                out.printf("Twoj encrypt hasla to ------> " + new String(encryptPassword));
+                byte[] encrypt = Base64.getEncoder().encode(CORRECT_NUMBER.getBytes());
+                out.printf("Twoj encrypt hasla to ------> " + new String(encrypt));
 
-                byte[] decryptPassword = Base64.getDecoder().decode(encryptPassword);
-                out.println("\nTwoj dencrypt hasla to ------> " + new String(decryptPassword));
+                byte[] decrypt = Base64.getDecoder().decode(encrypt);
+                out.println("\nTwoj dencrypt hasla to ------> " + new String(decrypt));
                 break;
-            case "2":
-                break;
+            default:
         }
     }
 
