@@ -20,7 +20,7 @@ public class Main {
             String input = number.nextLine();
             out.println(input);
             if (CORRECT_NUMBER.equals(input)) {
-                out.println("Wszedles!");
+                out.println("Wszedles w admina!");
                 printMenu();
                 return;
             }
@@ -31,7 +31,6 @@ public class Main {
     public static void printMenu() {
 
         Scanner menu = new Scanner(in);
-        out.println("Wszedles w admina!");
         out.println("1 - encrypt hasla  i decrypt hasla");
         out.println("2 - exit");
         String menuInput = menu.nextLine();
@@ -43,7 +42,11 @@ public class Main {
                 byte[] decrypt = Base64.getDecoder().decode(encrypt);
                 out.println("\nTwoj dencrypt hasla to ------> " + new String(decrypt));
                 break;
+            case"2":
+                break;
             default:
+                out.println("Blad! Powtorz jeszcze raz");
+                printMenu();
         }
     }
 
