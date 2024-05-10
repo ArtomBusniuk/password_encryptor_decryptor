@@ -1,58 +1,63 @@
+
 package org.example;
 
-import lombok.Getter;
-
+import java.io.PrintStream;
 import java.util.Base64;
-
 import java.util.Scanner;
 
-import static java.lang.System.*;
-
 public class Main {
-
-    public static final String CORRECT_NUMBER = "5";
     public static final int MAX_TRIES = 5;
 
-    public static Scanner getScanner() {
-        return new Scanner(in);
+    public Main() {
     }
 
+    public static Scanner getScanner() {
+        return new Scanner(System.in);
+    }
 
     public static void main(String[] args) {
+        User.password = "artom123";
+        User.username = "Artom";
+        User2.password2 = "vlad123";
+        User2.username2 = "Vlad";
         int numberOfTries = 0;
         Scanner userScanner = getScanner();
-        while (numberOfTries < MAX_TRIES) {
-            out.printf("Wpisz %s lub inny numer:", CORRECT_NUMBER);
-            String input = userScanner.nextLine();
-            out.println(input);
-            if (CORRECT_NUMBER.equals(input)) {
-                out.println("Wszedles w admina!");
+
+        while(numberOfTries < 5) {
+            System.out.printf("Podaj login:");
+            String inputLogin = userScanner.nextLine();
+            System.out.printf("Podaj haslo:");
+            String inputPassword = userScanner.nextLine();
+            if (User.password.equals(inputPassword) && User.username.equals(inputLogin) || User2.password2.equals(inputPassword) && User2.username2.equals(inputLogin)) {
+                System.out.println("Hello " + inputLogin + "!");
                 printMenu(userScanner);
                 return;
             }
-            numberOfTries++;
-            out.println("Nie prawidlowe haslo!\n");
+
+            ++numberOfTries;
+            System.out.println("Nie prawidlowy login albo haslo!\n");
+            System.out.println("Sprobuj jeszcze raz");
         }
+
     }
 
     public static void printMenu(Scanner scanner) {
-        out.println("1 - encrypt hasla  i decrypt hasla");
-        out.println("2 - exit");
-        String menuInput = scanner.nextLine();
-        switch (menuInput) {
+        System.out.println("1 - encrypt hasla  i decrypt hasla");
+        System.out.println("2 - exit");
+        switch (scanner.nextLine()) {
             case "1":
-                byte[] encrypt = Base64.getEncoder().encode(CORRECT_NUMBER.getBytes());
-                out.printf("Twoj encrypt hasla to ------> " + new String(encrypt));
-
+                byte[] encrypt = Base64.getEncoder().encode(User.password.getBytes());
+                System.out.printf("Twoj encrypt hasla to ------> " + new String(encrypt));
                 byte[] decrypt = Base64.getDecoder().decode(encrypt);
-                out.println("\nTwoj dencrypt hasla to ------> " + new String(decrypt));
-                break;
+                PrintStream var10000 = System.out;
+                String var10001 = new String(decrypt);
+                var10000.println("\nTwoj dencrypt hasla to ------> " + var10001);
             case "2":
                 break;
             default:
-                out.println("Blad! Powtorz jeszcze raz");
+                System.out.println("Blad! Powtorz jeszcze raz");
                 printMenu(scanner);
         }
-    }
 
+    }
 }
