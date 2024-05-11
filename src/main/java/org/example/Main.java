@@ -23,6 +23,7 @@ public class Main {
         int numberOfTries = 0;
         Scanner userScanner = getScanner();
         List<User> userList = new ArrayList<>();
+
         while(numberOfTries < 5) {
             String userDecision = "Q";
             if (userDecision.equals("Q")) {
