@@ -1,7 +1,8 @@
 package org.example;
 
 public class User {
-     public static String username;
-     public  static String password;
+     public  String username;
+     public   String password;
+     public static String type = "USER";
      boolean loggedIn;
 }
