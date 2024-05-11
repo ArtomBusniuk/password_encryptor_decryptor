@@ -28,6 +28,7 @@ public class Main {
             if (userDecision.equals("Q")) {
                 userList.add(registerNextUser(userScanner));
                 System.out.println("Press Q to register next user.");
+
                 userDecision = userScanner.nextLine();
                  if (userDecision.equals("Q")) {
                      continue;
