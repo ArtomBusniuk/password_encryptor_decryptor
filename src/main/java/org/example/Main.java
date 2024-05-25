@@ -47,12 +47,7 @@ public class Main {
         // check IF username IS in the userList, if there is, check if password is correct for THIS user
         System.out.println("Podaj swoj login");
 
-        boolean userExists = findIfUserExists(userList, username);
-        if (userExists) {
-            User user = getUserFromList(username);
-            loginUser(user);
 
-        }
 
 
         ++numberOfTries;
@@ -62,31 +57,21 @@ public class Main {
     }
 
 
-    public static void loginUser(User user) {
-        //logic for checking password validity for user
-        boolean isLoggedIn = validateUserPassword(user, password);
-        if (isLoggedIn) {
-            printMenu(userScanner);
-        }
-    }
-
     public static void printMenu(Scanner scanner) {
-//        System.out.println("1 - encrypt hasla  i decrypt hasla");
-//        System.out.println("2 - exit");
-//        switch (scanner.nextLine()) {
-//            case "1":
-//                byte[] encrypt = Base64.getEncoder().encode(User.password.getBytes());
-//                System.out.printf("Twoj encrypt hasla to ------> " + new String(encrypt));
-//                byte[] decrypt = Base64.getDecoder().decode(encrypt);
-//                PrintStream var10000 = System.out;
-//                String var10001 = new String(decrypt);
-//                var10000.println("\nTwoj dencrypt hasla to ------> " + var10001);
-//            case "2":
-//                break;
-//            default:
-//                System.out.println("Blad! Powtorz jeszcze raz");
-//                printMenu(scanner);
-        //}
+        System.out.println("1 - encrypt hasla  i decrypt hasla");
+        System.out.println("2 - exit");
+        switch (scanner.nextLine()) {
+            case "1":
+                byte[] encrypt = Base64.getEncoder().encode(registerUser(user).getBytes());
+                System.out.printf("Twoj encrypt hasla to ------> " + new String(encrypt));
+                byte[] decrypt = Base64.getDecoder().decode(encrypt);
+                System.out.println("\nTwoj dencrypt hasla to ------> " + decrypt);
+            case "2":
+                break;
+            default:
+                System.out.println("Blad! Powtorz jeszcze raz");
+                printMenu(scanner);
+        }
 
     }
 
@@ -107,5 +92,7 @@ public class Main {
         System.out.printf("Hello %s, your password is %s\n", user.username, user.password);
         return user;
     }
+
+
 
 }
