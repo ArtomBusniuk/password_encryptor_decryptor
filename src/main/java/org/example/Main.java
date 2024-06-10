@@ -16,11 +16,17 @@ public class Main {
 
     static String passwordInput;
 
+
     public static void main(String[] args) {
+        
         Scanner userScanner = getScanner();
         List<User> userList = new ArrayList<>();
         int numberOfTries = 0;
-        userList.add(createUser("admin", "admin"));
+        userList.add(registerUser("admin", "admin"));
+        userList.add(registerUser("admin1", "admin1"));
+        byte counter = 0;
+
+
         while (numberOfTries < 5) {
             System.out.println("Press Q to register user or press L to login.");
             String userDecision = userScanner.nextLine();
@@ -29,26 +35,26 @@ public class Main {
                 String loginInput = userScanner.nextLine();
                 System.out.println("Podaj haslo:");
                 passwordInput = userScanner.nextLine();
-                for (int i = 0; i < userList.size(); i++)
-                    if (userList.get(i).username.equals(loginInput) && userList.get(i).password.equals(passwordInput)) {
+                User findUser = getUserIfExists(loginInput,userList);
+                if (findUser != null && findUser.password.equals(passwordInput)) {
                         printMenu(userScanner);
-
-                    }
-                    else {
+                } else {
                         numberOfTries++;
-                        System.out.println("Nie prawidlowy login albo haslo!\n");
+                        System.out.println("Nie prawidlowy login albo haslo!");
                         System.out.println("Sprobuj jeszcze raz");
-                     }
+                    }
             }
             if (userDecision.equals("Q")) {
-                userList.add(registerNextUser(userScanner));
+                userList.add(registerNextUser(userScanner,userList));
                 userDecision = userScanner.nextLine();
+
                 if (userDecision.equals("Q")) {
                     continue;
                 }
             }
         }
     }
+
     public static void printMenu(Scanner scanner) {
         System.out.println("1 - encrypt hasla  i decrypt hasla");
         System.out.println("2 - exit");
@@ -56,44 +62,56 @@ public class Main {
             case "1":
 
                 byte[] encrypt = Base64.getEncoder().encode(passwordInput.getBytes());
-               System.out.printf("Twoj encrypt hasla to ------> " + new String(encrypt));
-               byte[] decrypt = Base64.getDecoder().decode(encrypt);
-               System.out.println("\nTwoj dencrypt hasla to ------> " + new String(decrypt));
-               case "2":
+                System.out.printf("Twoj encrypt hasla to ------> " + new String(encrypt));
+                byte[] decrypt = Base64.getDecoder().decode(encrypt);
+                System.out.println("\nTwoj dencrypt hasla to ------> " + new String(decrypt));
                 break;
-           default:
+            case "2":
+                break;
+            default:
                 System.out.println("Blad! Powtorz jeszcze raz");
                 printMenu(scanner);
         }
 
     }
-    public  static User registerUser(String username,String password) {
+
+    public static User registerUser(String username, String password) {
         User newUser = new User();
         newUser.password = password;
         newUser.username = username;
         return newUser;
 
     }
-    public static User createUser(String username, String password) {
-        User user = new User();
-        user.username = username;
-        user.password = password;
-        return  user;
-    }
-    public static User registerNextUser(Scanner scanner) {
+    public static User registerNextUser(Scanner scanner,List<User> userList) {
         System.out.println("Podaj login:");
-        String  inputLogin = scanner.nextLine();
-        System.out.println("Podaj haslo:");
-        String inputPassword = scanner.nextLine();
-        User user = registerUser(inputLogin,inputPassword);
-        System.out.printf("Hello %s, your password is %s\n",user.username,user.password);
-        return user;
+        String inputLogin = scanner.nextLine();
+        User existingUser = getUserIfExists(inputLogin,userList);
+        if (existingUser==null) {
+            System.out.println("Podaj haslo:");
+            String inputPassword = scanner.nextLine();
+            User user = registerUser(inputLogin, inputPassword);
+            System.out.printf("Hello %s, your password is %s\n", user.username, user.password);
+            return user;
+        }
+        System.out.println("User " + inputLogin + " already exists");
+        registerNextUser(scanner,userList);
+        return null;
     }
-//    public static User loginUser(boolean loggeIn) {
-//        User login = new User();
-//        login.loggedIn = loggeIn;
-//        return login;
+
+
+    public static User getUserIfExists(String username, List<User> userList) {
+        for (int i = 0; i < userList.size(); i++) {
+            User user  = userList.get(i);
+            // Happy Path
+            if (user.username.equals(username)) {
+                return user;
+            }
+        }
+        return null;
     }
+
+}
+
 
 
 
